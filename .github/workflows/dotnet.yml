@@ -15,7 +15,9 @@ jobs:
       with:
         dotnet-version: 7.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+        cd myapi
+        dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
@@ -33,6 +35,7 @@ jobs:
         dotnet-version: 7.x
     - name: Package Application
       run: |
+        cd myapi
         dotnet publish --configuration Release --output ./publish
         ls ./publish
 
@@ -41,6 +44,7 @@ jobs:
       with:
         name: published-app
         path: ./publish
+  
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -50,10 +54,16 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: published-app
+        path: ./myapi/publish
     - name: info
       run: |
         ls -l
         pwd
+        cd myapi
+        echo "***In MYAPI"
+        ls
+        echo "***In publish"
+        ls publish
       
  
       
