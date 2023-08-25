@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: myapi
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -16,7 +19,6 @@ jobs:
         dotnet-version: 7.x
     - name: Restore dependencies
       run: |
-        cd myapi
         dotnet restore
     - name: Build
       run: dotnet build --no-restore
@@ -25,6 +27,9 @@ jobs:
   package:
     runs-on: ubuntu-latest
     needs: [build]
+    defaults:
+      run:
+        working-directory: myapi
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -47,6 +52,9 @@ jobs:
   
   publish:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: myapi
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
