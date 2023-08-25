@@ -67,9 +67,6 @@ jobs:
       run: |
         ls -l
         pwd
-        cd myapi
-        echo "***In MYAPI"
-        ls
         echo "***In publish"
         ls publish
       
